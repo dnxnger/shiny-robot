@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CiberShield - Servicios de Seguridad Informática</title>
+    <style>
+        :root {
+            --primary-color: #0a192f;
+            --secondary-color: #64ffda;
+            --text-color: #8892b0;
+            --light-color: #ccd6f6;
+            --dark-color: #020c1b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: rgba(10, 25, 47, 0.95);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-scrolled {
+            background-color: rgba(2, 12, 27, 0.98);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--light-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: var(--light-color);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            padding: 8px 0;
+            position: relative;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+        
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--light-color);
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.7));
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            color: var(--light-color);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+        
+        .highlight {
+            color: var(--secondary-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: transparent;
+            color: var(--secondary-color);
+            padding: 12px 30px;
+            border: 1px solid var(--secondary-color);
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: rgba(100, 255, 218, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            color: var(--light-color);
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: rgba(12, 30, 54, 0.5);
+            border-radius: 8px;
+            padding: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-color: var(--secondary-color);
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        
+        .service-card h3 {
+            color: var(--light-color);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-image {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s ease;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .about-content h2 {
+            color: var(--light-color);
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .about-content p {
+            margin-bottom: 20px;
+        }
+        
+        .clients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+            align-items: center;
+            justify-items: center;
+        }
+        
+        .client-logo {
+            max-width: 150px;
+            height: auto;
+            filter: grayscale(100%) brightness(80%);
+            transition: all 0.3s ease;
+        }
+        
+        .client-logo:hover {
+            filter: grayscale(0%) brightness(100%);
+            transform: scale(1.1);
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+        
+        .contact-info {
+            padding: 30px;
+            background-color: rgba(12, 30, 54, 0.5);
+            border-radius: 8px;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .contact-info h3 {
+            color: var(--light-color);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-right: 15px;
+        }
+        
+        .contact-text {
+            color: var(--text-color);
+        }
+        
+        .contact-text a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-text a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .contact-form {
+            padding: 30px;
+            background-color: rgba(12, 30, 54, 0.5);
+            border-radius: 8px;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            background-color: rgba(10, 25, 47, 0.7);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            border-radius: 4px;
+            color: var(--light-color);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.2);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .form-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: transparent;
+            color: var(--secondary-color);
+            border: 1px solid var(--secondary-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .form-btn:hover {
+            background-color: rgba(100, 255, 218, 0.1);
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: var(--text-color);
+            padding: 50px 0 20px;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .footer-links a {
+            color: var(--text-color);
+            margin: 0 15px;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .footer-text {
+            margin-bottom: 20px;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(100, 255, 218, 0.2);
+            color: var(--secondary-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 99;
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: rgba(100, 255, 218, 0.4);
+            transform: translateY(-5px);
+        }
+        
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav ul {
+                position: absolute;
+                top: 80px;
+                right: 0;
+                width: 100%;
+                flex-direction: column;
+                background-color: var(--dark-color);
+                align-items: center;
+                padding: 20px 0;
+                clip-path: circle(0px at 90% -10%);
+                -webkit-clip-path: circle(0px at 90% -10%);
+                transition: all 0.5s ease-out;
+                pointer-events: none;
+                z-index: 10;
+            }
+            
+            nav ul.open {
+                clip-path: circle(1000px at 90% -10%);
+                -webkit-clip-path: circle(1000px at 90% -10%);
+                pointer-events: all;
+            }
+            
+            nav ul li {
+                margin: 15px 0;
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            
+            nav ul li.fade {
+                opacity: 1;
+                transform: translateX(0px);
+                transition: all 0.5s ease 0.2s;
+            }
+            
+            .hamburger.active div:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+            
+            .hamburger.active div:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active div:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-grid,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-image {
+                order: -1;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header id="header">
+        <div class="container nav-container">
+            <a href="#" class="logo">Ciber<span>Shield</span></a>
+            <nav>
+                <ul id="navbar">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#clientes">Clientes</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="hamburger" id="hamburger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="container hero-content">
+            <h1>Protegiendo su <span class="highlight">Mundo Digital</span></h1>
+            <p>En CiberShield nos especializamos en brindar soluciones de seguridad informática de alto nivel tanto para empresas como para personas naturales. Nuestro equipo de expertos está preparado para enfrentar las amenazas digitales del mañana.</p>
+            <a href="#contacto" class="btn">Solicita una Consulta Gratuita</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicios">
+        <div class="container">
+            <h2 class="section-title">Nuestros Servicios</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img src="/api/placeholder/60/60" alt="Security Audit Icon" />
+                    </div>
+                    <h3>Auditoría de Seguridad</h3>
+                    <p>Evaluamos exhaustivamente sus sistemas para identificar vulnerabilidades y proponer soluciones efectivas que mejoren su postura de seguridad.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img src="/api/placeholder/60/60" alt="Penetration Test Icon" />
+                    </div>
+                    <h3>Pruebas de Penetración</h3>
+                    <p>Simulamos ataques reales para detectar brechas de seguridad antes que los ciberdelincuentes puedan explotarlas.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img src="/api/placeholder/60/60" alt="Incident Response Icon" />
+                    </div>
+                    <h3>Respuesta a Incidentes</h3>
+                    <p>Ofrecemos asistencia inmediata ante eventos de seguridad, minimizando daños y restaurando la operatividad en el menor tiempo posible.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img src="/api/placeholder/60/60" alt="Security Training Icon" />
+                    </div>
+                    <h3>Capacitación en Seguridad</h3>
+                    <p>Preparamos a su equipo para reconocer y responder adecuadamente ante posibles amenazas, creando una cultura de seguridad.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img src="/api/placeholder/60/60" alt="Managed Security Icon" />
+                    </div>
+                    <h3>Seguridad Gestionada</h3>
+                    <p>Monitoreamos constantemente sus sistemas para detectar y neutralizar amenazas en tiempo real, brindando tranquilidad las 24/7.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img src="/api/placeholder/60/60" alt="Digital Forensics Icon" />
+                    </div>
+                    <h3>Análisis Forense Digital</h3>
+                    <p>Investigamos incidentes de seguridad para determinar causas, alcance y responsabilidades, recopilando evidencia digital admisible.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="nosotros">
+        <div class="container">
+            <h2 class="section-title">Sobre Nosotros</h2>
+            <div class="about-grid">
+                <div class="about-content">
+                    <h2>Expertos en Ciberseguridad a su Servicio</h2>
+                    <p>CiberShield nació con la misión de proteger la información y los activos digitales de nuestros clientes en un mundo cada vez más interconectado y vulnerable.</p>
+                    <p>Contamos con un equipo de profesionales certificados con amplia experiencia en el sector, que se mantienen actualizados sobre las últimas tendencias y amenazas en seguridad informática.</p>
+                    <p>Nuestro enfoque personalizado nos permite adaptarnos a las necesidades específicas de cada cliente, ofreciendo soluciones a medida que fortalecen su seguridad sin comprometer su operatividad.</p>
+                    <a href="#contacto" class="btn">Conoce Más</a>
+                </div>
+                <div class="about-image">
+                    <img src="/api/placeholder/600/400" alt="Equipo de CiberShield" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section id="clientes">
+        <div class="container">
+            <h2 class="section-title">Clientes que Confían en Nosotros</h2>
+            <div class="clients-grid">
+                <img src="/api/placeholder/150/80" alt="Client Logo 1" class="client-logo" />
+                <img src="/api/placeholder/150/80" alt="Client Logo 2" class="client-logo" />
+                <img src="/api/placeholder/150/80" alt="Client Logo 3" class="client-logo" />
+                <img src="/api/placeholder/150/80" alt="Client Logo 4" class="client-logo" />
+                <img src="/api/placeholder/150/80" alt="Client Logo 5" class="client-logo" />
+                <img src="/api/placeholder/150/80" alt="Client Logo 6" class="client-logo" />
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto">
+        <div class="container">
+            <h2 class="section-title">Contacto</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Información de Contacto</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-text">Av. Principal 123, Ciudad</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-text">+1 234 567 890</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div class="contact-text"><a href="mailto:info@cibershield.com">info@cibershield.com</a></div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🕒</div>
+                        <div class="contact-text">Lunes a Viernes: 9am - 6pm</div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="name" placeholder="Nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="email" placeholder="Correo Electrónico" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" class="form-control" id="phone" placeholder="Teléfono">
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" id="service" required>
+                                <option value="" disabled selected>Seleccione un Servicio</option>
+                                <option value="audit">Auditoría de Seguridad</option>
+                                <option value="pentest">Pruebas de Penetración</option>
+                                <option value="incident">Respuesta a Incidentes</option>
+                                <option value="training">Capacitación en Seguridad</option>
+                                <option value="managed">Seguridad Gestionada</option>
+                                <option value="forensics">Análisis Forense Digital</option>
+                                <option value="other">Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" id="message" placeholder="Mensaje" required></textarea>
+                        </div>
+                        <button type="submit" class="form-btn">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#" title="Facebook">📱</a>
+                <a href="#" title="X">❌</a>
+                <a href="#" title="LinkedIn">💼</a>
+                <a href="#" title="Instagram">📷</a>
+            </div>
+            <div class="footer-text">
+                <p>&copy; 2025 CiberShield. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" id="backToTop" class="back-to-top" title="Volver arriba">↑</a>
+
+    <!-- JavaScript -->
+    <script>
+        // Navbar Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navbar = document.getElementById('navbar');
+        const navLinks = document.querySelectorAll('#navbar li');
+
+        hamburger.addEventListener('click', () => {
+            navbar.classList.toggle('open');
+            hamburger.classList.toggle('active');
+            
+            navLinks.forEach((link, index) => {
+                if (link.style.animation) {
+                    link.style.animation = '';
+                } else {
+                    link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+                }
+                link.classList.toggle('fade');
+            });
+        });
+
+        // Close menu when clicking on a nav link
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navbar.classList.remove('open');
+                hamburger.classList.remove('active');
+                
+                navLinks.forEach(link => {
+                    link.style.animation = '';
+                    link.classList.remove('fade');
+                });
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            const backToTop = document.getElementById('backToTop');
+            
+            if (window.scrollY > 50) {
+                header.classList.add('header-scrolled');
+                backToTop.classList.add('active');
+            } else {
+                header.classList.remove('header-scrolled');
+                backToTop.classList.remove('active');
+            }
+        });
+
+        // Smooth scroll for anchors
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Form submission
+        const contactForm = document.getElementById('contactForm');
+        
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const phone = document.getElementById('phone').value;
+                const service = document.getElementById('service').value;
+                const message = document.getElementById('message').value;
+                
+                // You would normally send this data to a server
+                // For now, we'll just log it and show a success message
+                console.log('Form submitted:', { name, email, phone, service, message });
+                
+                // Show success message (in a real application, you'd check for server response)
+                alert('¡Gracias por contactarnos! Nos pondremos en contacto contigo pronto.');
+                
+                // Reset form
+                contactForm.reset();
+            });
+        }
+
+        // Animation for service cards on scroll
+        const serviceCards = document.querySelectorAll('.service-card');
+        
+        const checkCards = () => {
+            const triggerBottom = window.innerHeight * 0.8;
+            
+            serviceCards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                
+                if (cardTop < triggerBottom) {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        // Initially hide cards and set transition
+        serviceCards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        });
+        
+        // Check cards on load and scroll
+        window.addEventListener('load', checkCards);
+        window.addEventListener('scroll', checkCards);
+    </script>
+</body>
+</html>
